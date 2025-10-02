@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricky Hurtado - CV</title>
+  <style>
+    /* ===== GENERAL STYLES ===== */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9fb;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      margin: 0 0 10px;
+      font-weight: 600;
+    }
+    a {
+      text-decoration: none;
+      color: #003366;
+    }
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, #003366, #d4af37);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5em;
+    }
+    header p {
+      font-size: 1.1em;
+      margin-top: 8px;
+    }
+    /* ===== CONTAINER ===== */
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 0;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    .section h2 {
+      color: #003366;
+      border-left: 5px solid #d4af37;
+      padding-left: 10px;
+      margin-bottom: 20px;
+    }
+    /* ===== EXPERIENCE & EDUCATION ===== */
+    .item {
+      margin-bottom: 20px;
+    }
+    .item h3 {
+      color: #003366;
+    }
+    .item span {
+      display: block;
+      font-size: 0.9em;
+      color: #777;
+    }
+    /* ===== SKILLS ===== */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .skill {
+      background: #003366;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+    }
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #003366;
+      color: white;
+      font-size: 0.9em;
+    }
+    footer a {
+      color: #d4af37;
+      margin: 0 8px;
+    }
+    /* ===== INTERACTIVE ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ricky Hurtado</h1>
+    <p>Telecommunications Engineer | Networking | IoT | Drone Systems</p>
+    <p>
+      <a href="mailto:ricky.hurtado@email.com">📧 Email</a> | 
+      <a href="https://www.linkedin.com/in/ricky-hurtado" target="_blank">💼 LinkedIn</a> | 
+      <a href="https://github.com/rickyhurtado" target="_blank">🌐 GitHub</a>
+    </p>
+  </header>
+
+  <div class="container">
+    <!-- About -->
+    <section class="section fade-in">
+      <h2>About Me</h2>
+      <p>
+        Telecommunications Engineer with experience in drone communication systems, networking, and emerging technologies.
+        Passionate about applying advanced telecom tools to real-world challenges, with strong skills in design, 
+        configuration, and optimization of systems.
+      </p>
+    </section>
+
+    <!-- Experience -->
+    <section class="section fade-in">
+      <h2>Experience</h2>
+      <div class="item">
+        <h3>Telecom Engineer - Company XYZ</h3>
+        <span>2022 - Present | Bogotá, Colombia</span>
+        <p>
+          - Configured and optimized IoT and wireless communication systems.<br>
+          - Supported large-scale drone networking projects for live shows.<br>
+          - Led cross-functional teams in system deployment.
+        </p>
+      </div>
+      <div class="item">
+        <h3>Network Specialist - Company ABC</h3>
+        <span>2020 - 2022 | Bogotá, Colombia</span>
+        <p>
+          - Deployed secure communication protocols.<br>
+          - Designed resilient network architectures.<br>
+          - Delivered training to junior engineers.
+        </p>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="section fade-in">
+      <h2>Education</h2>
+      <div class="item">
+        <h3>BSc in Telecommunications Engineering</h3>
+        <span>National University of Colombia</span>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section fade-in">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill">Networking</div>
+        <div class="skill">IoT</div>
+        <div class="skill">Drone Systems</div>
+        <div class="skill">Python</div>
+        <div class="skill">Linux</div>
+        <div class="skill">Telecom Protocols</div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 Ricky Hurtado</p>
+    <p>
+      <a href="mailto:ricky.hurtado@email.com">Email</a> | 
+      <a href="https://www.linkedin.com/in/ricky-hurtado">LinkedIn</a> | 
+      <a href="https://github.com/rickyhurtado">GitHub</a>
+    </p>
+  </footer>
+
+  <script>
+    // Fade-in animation on scroll
+    const faders = document.querySelectorAll(".fade-in");
+    const appearOptions = { threshold: 0.2 };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+  </script>
+</body>
+</html>
