@@ -350,25 +350,16 @@
       clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
     }
 
-    /* Transición entre idiomas */
-    .fade-lang {
-      position: relative;
-    }
-
-    .fade-lang > div {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
+    /* Transición entre idiomas - OPTIMIZADA */
+    .lang-content {
+      display: none;
       opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
+      transition: opacity 0.2s ease;
     }
 
-    .fade-lang > .active {
-      position: relative;
+    .lang-content.active {
+      display: block;
       opacity: 1;
-      pointer-events: all;
     }
 
     /* Animaciones */
@@ -504,9 +495,9 @@
     </div>
   </header>
 
-  <div class="container fade-lang" role="main">
+  <div class="container" role="main">
     <!-- ===== CV Español ===== -->
-    <div id="cv-es" class="active" aria-labelledby="title-es" aria-hidden="false">
+    <div id="cv-es" class="lang-content active" aria-labelledby="title-es" aria-hidden="false">
       <div class="cv-content">
         <div class="sidebar">
           <section class="section" aria-labelledby="about-es">
@@ -616,7 +607,7 @@
     </div>
 
     <!-- ===== CV Inglés ===== -->
-    <div id="cv-en" aria-labelledby="title-en" aria-hidden="true">
+    <div id="cv-en" class="lang-content" aria-labelledby="title-en" aria-hidden="true">
       <div class="cv-content">
         <div class="sidebar">
           <section class="section" aria-labelledby="about-en">
@@ -751,25 +742,47 @@
       sections.forEach(section => {
         observer.observe(section);
       });
+      
+      // Precargar ambos idiomas para transiciones más rápidas
+      const esContent = document.getElementById('cv-es');
+      const enContent = document.getElementById('cv-en');
+      
+      // Forzar renderizado de ambos contenidos
+      esContent.style.display = 'block';
+      enContent.style.display = 'block';
+      
+      // Luego ocultar el inglés si no está activo
+      setTimeout(() => {
+        if (!enContent.classList.contains('active')) {
+          enContent.style.display = 'none';
+        }
+      }, 10);
     });
 
-    // Mejor gestión del cambio de idioma
+    // Gestión optimizada del cambio de idioma
     const langBtn = document.getElementById('langBtn');
     const currentLang = document.getElementById('currentLang');
     const langText = document.getElementById('langText');
+    const titleEs = document.getElementById('title-es');
+    const titleEn = document.getElementById('title-en');
+    const esContent = document.getElementById('cv-es');
+    const enContent = document.getElementById('cv-en');
+
+    let isChangingLang = false;
 
     function toggleLang() {
-      const es = document.getElementById('cv-es');
-      const en = document.getElementById('cv-en');
-      const titleEs = document.getElementById('title-es');
-      const titleEn = document.getElementById('title-en');
-
-      if (es.classList.contains('active')) {
-        // Cambiar a inglés
-        es.classList.remove('active');
-        es.setAttribute('aria-hidden', 'true');
-        en.classList.add('active');
-        en.setAttribute('aria-hidden', 'false');
+      if (isChangingLang) return;
+      
+      isChangingLang = true;
+      
+      const currentIsEs = esContent.classList.contains('active');
+      
+      if (currentIsEs) {
+        // Cambiar a inglés - TRANSICIÓN INSTANTÁNEA
+        esContent.classList.remove('active');
+        esContent.style.display = 'none';
+        enContent.classList.add('active');
+        enContent.style.display = 'block';
         
         titleEs.style.display = 'none';
         titleEn.style.display = 'block';
@@ -777,14 +790,13 @@
         currentLang.textContent = 'EN';
         langText.textContent = 'Cambiar a Español';
         
-        // Actualizar el idioma del documento
         document.documentElement.lang = 'en';
       } else {
-        // Cambiar a español
-        en.classList.remove('active');
-        en.setAttribute('aria-hidden', 'true');
-        es.classList.add('active');
-        es.setAttribute('aria-hidden', 'false');
+        // Cambiar a español - TRANSICIÓN INSTANTÁNEA
+        enContent.classList.remove('active');
+        enContent.style.display = 'none';
+        esContent.classList.add('active');
+        esContent.style.display = 'block';
         
         titleEn.style.display = 'none';
         titleEs.style.display = 'block';
@@ -792,7 +804,6 @@
         currentLang.textContent = 'ES';
         langText.textContent = 'Switch to English';
         
-        // Actualizar el idioma del documento
         document.documentElement.lang = 'es';
       }
       
@@ -805,6 +816,11 @@
         section.classList.remove('visible');
         observer.observe(section);
       });
+      
+      // Permitir nuevo cambio después de un breve delay
+      setTimeout(() => {
+        isChangingLang = false;
+      }, 100);
     }
 
     // Asignar evento al botón
@@ -822,8 +838,14 @@
     const userLang = navigator.language || navigator.userLanguage;
     if (userLang.startsWith('en') && document.documentElement.lang !== 'en') {
       // Si el usuario prefiere inglés y la página está en español, cambiar automáticamente
-      setTimeout(toggleLang, 500);
+      setTimeout(toggleLang, 100);
     }
+
+    // Precargar animaciones para mejor rendimiento
+    window.addEventListener('load', () => {
+      // Forzar composición de capas para mejor rendimiento
+      document.body.style.transform = 'translateZ(0)';
+    });
   </script>
 </body>
 </html>
