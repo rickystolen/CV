@@ -11,21 +11,27 @@
       background: #f9f9fb;
       color: #333;
       line-height: 1.6;
+      overflow-x: hidden;
     }
     header {
       background: linear-gradient(135deg, #003366, #d4af37);
       color: white;
-      padding: 40px 20px;
+      padding: 50px 20px;
       text-align: center;
       position: relative;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     header h1 {
       margin: 0;
-      font-size: 2.2em;
+      font-size: 2.5em;
+      animation: slideInDown 1s ease;
     }
     header p {
-      margin: 5px 0;
+      margin: 8px 0;
+      font-size: 1.1em;
+      animation: fadeIn 1.5s ease;
     }
+    /* Toggle Idioma */
     .lang-toggle {
       position: absolute;
       top: 20px;
@@ -33,11 +39,18 @@
       background: #d4af37;
       color: #003366;
       border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
+      padding: 10px 20px;
+      border-radius: 30px;
       font-weight: bold;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
+    .lang-toggle:hover {
+      background: #fff;
+      color: #003366;
+      transform: scale(1.05);
+    }
+    /* Contenido */
     .container {
       width: 90%;
       max-width: 1000px;
@@ -46,15 +59,27 @@
     }
     .section {
       margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .section h2 {
       color: #003366;
       border-left: 5px solid #d4af37;
       padding-left: 10px;
       margin-bottom: 20px;
+      font-size: 1.5em;
     }
     .item {
       margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    .item:hover {
+      transform: translateX(10px);
     }
     .item h3 {
       color: #003366;
@@ -70,31 +95,50 @@
       padding: 8px 15px;
       border-radius: 20px;
       font-size: 0.9em;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .skill:hover {
+      background: #d4af37;
+      color: #003366;
+      transform: scale(1.1);
     }
     footer {
       text-align: center;
       padding: 20px;
       background: #003366;
       color: white;
+      font-size: 0.9em;
+      margin-top: 40px;
+      animation: slideInUp 1s ease;
     }
-    .fade-in {
+    /* Fade cross */
+    .fade-lang {
+      position: relative;
+    }
+    .fade-lang > div {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
+      transition: opacity 0.6s ease;
     }
-    .fade-in.visible {
+    .fade-lang > .active {
+      position: relative;
       opacity: 1;
-      transform: translateY(0);
     }
-    /* Ocultar idioma alterno */
-    .hidden {
-      display: none;
+    @keyframes slideInDown {
+      from {transform: translateY(-50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+    @keyframes slideInUp {
+      from {transform: translateY(50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1 id="name">Ricky Alexander Hurtado Simijaca</h1>
+    <h1>Ricky Alexander Hurtado Simijaca</h1>
     <p id="title-es">Ingeniero en Telecomunicaciones | Especialización en Comunicaciones Móviles</p>
     <p id="title-en" class="hidden">Telecommunications Engineer | Mobile Communications Specialization</p>
     <p>
@@ -102,88 +146,40 @@
       📧 <a href="mailto:ricky.hurtado@hotmail.com">ricky.hurtado@hotmail.com</a> | 
       📱 +57 302 814 3855
     </p>
-    <button class="lang-toggle" onclick="toggleLang()">EN / ES</button>
+    <button id="langBtn" class="lang-toggle" onclick="toggleLang()">Switch to English</button>
   </header>
 
-  <div class="container">
-    <!-- ===== CV en Español ===== -->
-    <div id="cv-es">
-      <section class="section fade-in">
-        <h2>Sobre Mí</h2>
-        <p>
-          Ingeniero en Telecomunicaciones con estudios de Especialización en Comunicaciones Móviles, apasionado y entusiasta por mi trabajo, con años de experiencia en proyectos en diversos sectores.
-        </p>
+  <div class="container fade-lang">
+    <!-- ===== CV Español ===== -->
+    <div id="cv-es" class="active">
+      <section class="section"><h2>Sobre Mí</h2><p>Ingeniero en Telecomunicaciones con estudios de Especialización en Comunicaciones Móviles, apasionado y entusiasta por mi trabajo...</p></section>
+      <section class="section"><h2>Experiencia Laboral</h2>
+        <div class="item"><h3>Service Representative – Toshiba Global Commerce Solutions</h3><span>2013 – 2023 | Bogotá</span><p>Implementación de Redes, Soporte Especializado, Supervisión de Implementaciones.</p></div>
+        <!-- ... resto ES ... -->
       </section>
-
-      <section class="section fade-in">
-        <h2>Experiencia Laboral</h2>
-        <div class="item">
-          <h3>Service Representative – Toshiba Global Commerce Solutions</h3>
-          <span>2013 – 2023 | Bogotá, Colombia</span>
-          <p>Implementación de Infraestructura de Redes, Soporte Especializado en Tecnología, Supervisión de Implementaciones y Mantenimiento.</p>
-        </div>
-        <!-- ... resto experiencia ES ... -->
-      </section>
-
-      <section class="section fade-in">
-        <h2>Educación y Formación</h2>
+      <section class="section"><h2>Educación y Formación</h2>
         <div class="item"><h3>Ingeniero en Telecomunicaciones</h3><span>2009 – 2016 | Universidad Distrital FJDC</span></div>
-        <!-- ... resto educación ES ... -->
+        <!-- ... resto ES ... -->
       </section>
-
-      <section class="section fade-in">
-        <h2>Competencias</h2>
-        <div class="skills">
-          <div class="skill">Redes</div>
-          <div class="skill">Seguridad</div>
-          <div class="skill">Diseño Web</div>
-        </div>
-      </section>
-
-      <section class="section fade-in">
-        <h2>Idiomas</h2>
-        <p>Español (Nativo) | Inglés (Intermedio)</p>
-      </section>
+      <section class="section"><h2>Competencias Digitales</h2><div class="skills"><div class="skill">Redes</div><div class="skill">Seguridad</div><div class="skill">Ofimática</div><div class="skill">Diseño Web</div></div></section>
+      <section class="section"><h2>Idiomas</h2><p>Español (Nativo) | Inglés (Intermedio)</p></section>
+      <section class="section"><h2>Aficiones</h2><p>Tecnología, Lectura, Entrenamiento Físico</p></section>
     </div>
 
-    <!-- ===== CV en Inglés ===== -->
-    <div id="cv-en" class="hidden">
-      <section class="section fade-in">
-        <h2>About Me</h2>
-        <p>
-          Telecommunications Engineer with specialization studies in Mobile Communications. Passionate and enthusiastic about my work, with extensive experience in different industry sectors.
-        </p>
+    <!-- ===== CV Inglés ===== -->
+    <div id="cv-en">
+      <section class="section"><h2>About Me</h2><p>Telecommunications Engineer with studies in Mobile Communications. Enthusiastic and passionate professional with years of experience across multiple sectors...</p></section>
+      <section class="section"><h2>Work Experience</h2>
+        <div class="item"><h3>Service Representative – Toshiba Global Commerce Solutions</h3><span>2013 – 2023 | Bogotá</span><p>Network infrastructure implementation, specialized support, project supervision.</p></div>
+        <!-- ... resto EN ... -->
       </section>
-
-      <section class="section fade-in">
-        <h2>Work Experience</h2>
-        <div class="item">
-          <h3>Service Representative – Toshiba Global Commerce Solutions</h3>
-          <span>2013 – 2023 | Bogotá, Colombia</span>
-          <p>Implemented network infrastructure, provided specialized technology support, and supervised maintenance and deployments.</p>
-        </div>
-        <!-- ... resto experiencia EN ... -->
+      <section class="section"><h2>Education & Training</h2>
+        <div class="item"><h3>BSc Telecommunications Engineering</h3><span>2009 – 2016 | Universidad Distrital FJDC</span></div>
+        <!-- ... resto EN ... -->
       </section>
-
-      <section class="section fade-in">
-        <h2>Education & Training</h2>
-        <div class="item"><h3>BSc in Telecommunications Engineering</h3><span>2009 – 2016 | Universidad Distrital FJDC</span></div>
-        <!-- ... resto educación EN ... -->
-      </section>
-
-      <section class="section fade-in">
-        <h2>Skills</h2>
-        <div class="skills">
-          <div class="skill">Networking</div>
-          <div class="skill">Security</div>
-          <div class="skill">Web Design</div>
-        </div>
-      </section>
-
-      <section class="section fade-in">
-        <h2>Languages</h2>
-        <p>Spanish (Native) | English (Intermediate)</p>
-      </section>
+      <section class="section"><h2>Digital Skills</h2><div class="skills"><div class="skill">Networking</div><div class="skill">Security</div><div class="skill">Web Design</div></div></section>
+      <section class="section"><h2>Languages</h2><p>Spanish (Native) | English (Intermediate)</p></section>
+      <section class="section"><h2>Interests</h2><p>Technology, Reading, Physical Training</p></section>
     </div>
   </div>
 
@@ -192,26 +188,31 @@
   </footer>
 
   <script>
-    // Animación fade-in
-    const faders = document.querySelectorAll(".fade-in");
-    const appearOptions = { threshold: 0.2 };
-    const appearOnScroll = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+    // Fade-in scroll animation
+    const sections = document.querySelectorAll(".section");
+    window.addEventListener("scroll", () => {
+      sections.forEach(sec => {
+        const pos = sec.getBoundingClientRect().top;
+        if (pos < window.innerHeight - 100) sec.classList.add("visible");
       });
-    }, appearOptions);
-    faders.forEach(fader => {
-      appearOnScroll.observe(fader);
     });
 
-    // Toggle idioma
+    // Crossfade toggle idioma con cambio de texto en botón
     function toggleLang() {
-      document.getElementById("cv-es").classList.toggle("hidden");
-      document.getElementById("cv-en").classList.toggle("hidden");
-      document.getElementById("title-es").classList.toggle("hidden");
-      document.getElementById("title-en").classList.toggle("hidden");
+      const es = document.getElementById("cv-es");
+      const en = document.getElementById("cv-en");
+      const btn = document.getElementById("langBtn");
+
+      if (es.classList.contains("active")) {
+        es.classList.remove("active");
+        en.classList.add("active");
+        btn.textContent = "Cambiar a Español";
+      } else {
+        en.classList.remove("active");
+        es.classList.add("active");
+        btn.textContent = "Switch to English";
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
 </body>
