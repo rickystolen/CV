@@ -3,183 +3,391 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CV de Ricky Hurtado - Ingeniero en Telecomunicaciones">
   <title>CV - Ricky Hurtado</title>
   <style>
-    body {
+    /* Variables CSS para mantener consistencia */
+    :root {
+      --primary-color: #003366;
+      --secondary-color: #d4af37;
+      --background-color: #f9f9fb;
+      --text-color: #333;
+      --white: #ffffff;
+      --shadow: 0 4px 10px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* Reset y estilos base */
+    * {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: #f9f9fb;
-      color: #333;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
       line-height: 1.6;
       overflow-x: hidden;
     }
+
+    /* Encabezado */
     header {
-      background: linear-gradient(135deg, #003366, #d4af37);
-      color: white;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
       padding: 50px 20px;
       text-align: center;
       position: relative;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow);
     }
+
     header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      animation: slideInDown 1s ease;
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      animation: slideInDown 0.8s ease;
     }
+
     header p {
       margin: 8px 0;
       font-size: 1.1em;
-      animation: fadeIn 1.5s ease;
+      animation: fadeIn 1.2s ease;
     }
-    /* Toggle Idioma */
+
+    header a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    header a:hover {
+      text-decoration: underline;
+      opacity: 0.9;
+    }
+
+    /* Botón de cambio de idioma */
     .lang-toggle {
       position: absolute;
       top: 20px;
       right: 20px;
-      background: #d4af37;
-      color: #003366;
-      border: none;
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      border: 2px solid transparent;
       padding: 10px 20px;
       border-radius: 30px;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .lang-toggle:hover {
-      background: #fff;
-      color: #003366;
+
+    .lang-toggle:hover, .lang-toggle:focus {
+      background: var(--white);
       transform: scale(1.05);
+      outline: none;
     }
-    /* Contenido */
+
+    .lang-toggle:active {
+      transform: scale(0.98);
+    }
+
+    .lang-indicator {
+      font-size: 0.8em;
+      opacity: 0.8;
+    }
+
+    /* Contenedor principal */
     .container {
       width: 90%;
       max-width: 1000px;
-      margin: auto;
+      margin: 0 auto;
       padding: 40px 0;
     }
+
+    /* Secciones */
     .section {
       margin-bottom: 40px;
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s ease;
+      transition: all 0.6s ease;
+      background: var(--white);
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
     }
+
     .section.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
     .section h2 {
-      color: #003366;
-      border-left: 5px solid #d4af37;
-      padding-left: 10px;
+      color: var(--primary-color);
+      border-left: 5px solid var(--secondary-color);
+      padding-left: 15px;
       margin-bottom: 20px;
       font-size: 1.5em;
     }
+
+    /* Elementos de lista */
     .item {
       margin-bottom: 20px;
-      transition: transform 0.3s ease;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      transition: var(--transition);
     }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
     .item:hover {
-      transform: translateX(10px);
+      transform: translateX(5px);
     }
+
     .item h3 {
-      color: #003366;
+      color: var(--primary-color);
+      margin-bottom: 5px;
     }
+
+    .item span {
+      display: block;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    /* Habilidades */
     .skills {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
+
     .skill {
-      background: #003366;
-      color: white;
+      background: var(--primary-color);
+      color: var(--white);
       padding: 8px 15px;
       border-radius: 20px;
       font-size: 0.9em;
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: var(--transition);
     }
+
     .skill:hover {
-      background: #d4af37;
-      color: #003366;
-      transform: scale(1.1);
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      transform: scale(1.05);
     }
+
+    /* Pie de página */
     footer {
       text-align: center;
       padding: 20px;
-      background: #003366;
-      color: white;
+      background: var(--primary-color);
+      color: var(--white);
       font-size: 0.9em;
       margin-top: 40px;
-      animation: slideInUp 1s ease;
     }
-    /* Fade cross */
+
+    /* Transición entre idiomas */
     .fade-lang {
       position: relative;
     }
+
     .fade-lang > div {
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
     }
+
     .fade-lang > .active {
       position: relative;
       opacity: 1;
+      pointer-events: all;
     }
+
+    /* Animaciones */
     @keyframes slideInDown {
-      from {transform: translateY(-50px); opacity: 0;}
-      to {transform: translateY(0); opacity: 1;}
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
+
     @keyframes slideInUp {
-      from {transform: translateY(50px); opacity: 0;}
-      to {transform: translateY(0); opacity: 1;}
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 30px 15px;
+      }
+
+      .lang-toggle {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 15px auto 0;
+        display: inline-flex;
+      }
+
+      .container {
+        width: 95%;
+        padding: 20px 0;
+      }
+
+      .section {
+        padding: 20px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .skills {
+        justify-content: center;
+      }
+      
+      .skill {
+        font-size: 0.8em;
+        padding: 6px 12px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Ricky Alexander Hurtado Simijaca</h1>
-    <p id="title-es">Ingeniero en Telecomunicaciones2 | Especialización en Comunicaciones Móviles</p>
+    <p id="title-es">Ingeniero en Telecomunicaciones | Especialización en Comunicaciones Móviles</p>
     <p id="title-en" class="hidden">Telecommunications Engineer | Mobile Communications Specialization</p>
     <p>
       📍 Bogotá, Colombia | 
-      📧 <a href="mailto:ricky.hurtado@hotmail.com">ricky.hurtado@hotmail.com</a> | 
+      📧 <a href="mailto:ricky.hurtado@hotmail.com" aria-label="Enviar correo a Ricky Hurtado">ricky.hurtado@hotmail.com</a> | 
       📱 +57 302 814 3855
     </p>
-    <button id="langBtn" class="lang-toggle" onclick="toggleLang()">Switch to English</button>
+    <button id="langBtn" class="lang-toggle" aria-label="Cambiar idioma">
+      <span class="lang-indicator" id="currentLang">ES</span>
+      <span id="langText">Switch to English</span>
+    </button>
   </header>
 
-  <div class="container fade-lang">
+  <div class="container fade-lang" role="main">
     <!-- ===== CV Español ===== -->
-    <div id="cv-es" class="active">
-      <section class="section"><h2>Sobre Mí</h2><p>Ingeniero en Telecomunicaciones con estudios de Especialización en Comunicaciones Móviles, apasionado y entusiasta por mi trabajo...</p></section>
-      <section class="section"><h2>Experiencia Laboral</h2>
-        <div class="item"><h3>Service Representative – Toshiba Global Commerce Solutions</h3><span>2013 – 2023 | Bogotá</span><p>Implementación de Redes, Soporte Especializado, Supervisión de Implementaciones.</p></div>
-        <!-- ... resto ES ... -->
+    <div id="cv-es" class="active" aria-labelledby="title-es" aria-hidden="false">
+      <section class="section" aria-labelledby="about-es">
+        <h2 id="about-es">Sobre Mí</h2>
+        <p>Ingeniero en Telecomunicaciones con estudios de Especialización en Comunicaciones Móviles, apasionado y entusiasta por mi trabajo. Con experiencia en implementación de redes, soporte especializado y supervisión de proyectos tecnológicos.</p>
       </section>
-      <section class="section"><h2>Educación y Formación</h2>
-        <div class="item"><h3>Ingeniero en Telecomunicaciones</h3><span>2009 – 2016 | Universidad Distrital FJDC</span></div>
-        <!-- ... resto ES ... -->
+      
+      <section class="section" aria-labelledby="experience-es">
+        <h2 id="experience-es">Experiencia Laboral</h2>
+        <div class="item">
+          <h3>Service Representative – Toshiba Global Commerce Solutions</h3>
+          <span>2013 – 2023 | Bogotá</span>
+          <p>Implementación de Redes, Soporte Especializado, Supervisión de Implementaciones.</p>
+        </div>
+        <!-- Más elementos de experiencia aquí -->
       </section>
-      <section class="section"><h2>Competencias Digitales</h2><div class="skills"><div class="skill">Redes</div><div class="skill">Seguridad</div><div class="skill">Ofimática</div><div class="skill">Diseño Web</div></div></section>
-      <section class="section"><h2>Idiomas</h2><p>Español (Nativo) | Inglés (Intermedio)</p></section>
-      <section class="section"><h2>Aficiones</h2><p>Tecnología, Lectura, Entrenamiento Físico</p></section>
+      
+      <section class="section" aria-labelledby="education-es">
+        <h2 id="education-es">Educación y Formación</h2>
+        <div class="item">
+          <h3>Ingeniero en Telecomunicaciones</h3>
+          <span>2009 – 2016 | Universidad Distrital FJDC</span>
+        </div>
+        <!-- Más elementos de educación aquí -->
+      </section>
+      
+      <section class="section" aria-labelledby="skills-es">
+        <h2 id="skills-es">Competencias Digitales</h2>
+        <div class="skills">
+          <div class="skill" tabindex="0">Redes</div>
+          <div class="skill" tabindex="0">Seguridad</div>
+          <div class="skill" tabindex="0">Ofimática</div>
+          <div class="skill" tabindex="0">Diseño Web</div>
+        </div>
+      </section>
+      
+      <section class="section" aria-labelledby="languages-es">
+        <h2 id="languages-es">Idiomas</h2>
+        <p>Español (Nativo) | Inglés (Intermedio)</p>
+      </section>
+      
+      <section class="section" aria-labelledby="hobbies-es">
+        <h2 id="hobbies-es">Aficiones</h2>
+        <p>Tecnología, Lectura, Entrenamiento Físico</p>
+      </section>
     </div>
 
     <!-- ===== CV Inglés ===== -->
-    <div id="cv-en">
-      <section class="section"><h2>About Me</h2><p>Telecommunications Engineer with studies in Mobile Communications. Enthusiastic and passionate professional with years of experience across multiple sectors...</p></section>
-      <section class="section"><h2>Work Experience</h2>
-        <div class="item"><h3>Service Representative – Toshiba Global Commerce Solutions</h3><span>2013 – 2023 | Bogotá</span><p>Network infrastructure implementation, specialized support, project supervision.</p></div>
-        <!-- ... resto EN ... -->
+    <div id="cv-en" aria-labelledby="title-en" aria-hidden="true">
+      <section class="section" aria-labelledby="about-en">
+        <h2 id="about-en">About Me</h2>
+        <p>Telecommunications Engineer with studies in Mobile Communications. Enthusiastic and passionate professional with years of experience across multiple sectors, specializing in network implementation and technical support.</p>
       </section>
-      <section class="section"><h2>Education & Training</h2>
-        <div class="item"><h3>BSc Telecommunications Engineering</h3><span>2009 – 2016 | Universidad Distrital FJDC</span></div>
-        <!-- ... resto EN ... -->
+      
+      <section class="section" aria-labelledby="experience-en">
+        <h2 id="experience-en">Work Experience</h2>
+        <div class="item">
+          <h3>Service Representative – Toshiba Global Commerce Solutions</h3>
+          <span>2013 – 2023 | Bogotá</span>
+          <p>Network infrastructure implementation, specialized support, project supervision.</p>
+        </div>
+        <!-- Más elementos de experiencia aquí -->
       </section>
-      <section class="section"><h2>Digital Skills</h2><div class="skills"><div class="skill">Networking</div><div class="skill">Security</div><div class="skill">Web Design</div></div></section>
-      <section class="section"><h2>Languages</h2><p>Spanish (Native) | English (Intermediate)</p></section>
-      <section class="section"><h2>Interests</h2><p>Technology, Reading, Physical Training</p></section>
+      
+      <section class="section" aria-labelledby="education-en">
+        <h2 id="education-en">Education & Training</h2>
+        <div class="item">
+          <h3>BSc Telecommunications Engineering</h3>
+          <span>2009 – 2016 | Universidad Distrital FJDC</span>
+        </div>
+        <!-- Más elementos de educación aquí -->
+      </section>
+      
+      <section class="section" aria-labelledby="skills-en">
+        <h2 id="skills-en">Digital Skills</h2>
+        <div class="skills">
+          <div class="skill" tabindex="0">Networking</div>
+          <div class="skill" tabindex="0">Security</div>
+          <div class="skill" tabindex="0">Web Design</div>
+        </div>
+      </section>
+      
+      <section class="section" aria-labelledby="languages-en">
+        <h2 id="languages-en">Languages</h2>
+        <p>Spanish (Native) | English (Intermediate)</p>
+      </section>
+      
+      <section class="section" aria-labelledby="hobbies-en">
+        <h2 id="hobbies-en">Interests</h2>
+        <p>Technology, Reading, Physical Training</p>
+      </section>
     </div>
   </div>
 
@@ -188,31 +396,91 @@
   </footer>
 
   <script>
-    // Fade-in scroll animation
-    const sections = document.querySelectorAll(".section");
-    window.addEventListener("scroll", () => {
-      sections.forEach(sec => {
-        const pos = sec.getBoundingClientRect().top;
-        if (pos < window.innerHeight - 100) sec.classList.add("visible");
+    // Mejora en la detección de intersección para animaciones
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observar todas las secciones
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        observer.observe(section);
       });
     });
 
-    // Crossfade toggle idioma con cambio de texto en botón
-    function toggleLang() {
-      const es = document.getElementById("cv-es");
-      const en = document.getElementById("cv-en");
-      const btn = document.getElementById("langBtn");
+    // Mejor gestión del cambio de idioma
+    const langBtn = document.getElementById('langBtn');
+    const currentLang = document.getElementById('currentLang');
+    const langText = document.getElementById('langText');
 
-      if (es.classList.contains("active")) {
-        es.classList.remove("active");
-        en.classList.add("active");
-        btn.textContent = "Cambiar a Español";
+    function toggleLang() {
+      const es = document.getElementById('cv-es');
+      const en = document.getElementById('cv-en');
+      const titleEs = document.getElementById('title-es');
+      const titleEn = document.getElementById('title-en');
+
+      if (es.classList.contains('active')) {
+        // Cambiar a inglés
+        es.classList.remove('active');
+        es.setAttribute('aria-hidden', 'true');
+        en.classList.add('active');
+        en.setAttribute('aria-hidden', 'false');
+        
+        titleEs.style.display = 'none';
+        titleEn.style.display = 'block';
+        
+        currentLang.textContent = 'EN';
+        langText.textContent = 'Cambiar a Español';
+        
+        // Actualizar el idioma del documento
+        document.documentElement.lang = 'en';
       } else {
-        en.classList.remove("active");
-        es.classList.add("active");
-        btn.textContent = "Switch to English";
+        // Cambiar a español
+        en.classList.remove('active');
+        en.setAttribute('aria-hidden', 'true');
+        es.classList.add('active');
+        es.setAttribute('aria-hidden', 'false');
+        
+        titleEn.style.display = 'none';
+        titleEs.style.display = 'block';
+        
+        currentLang.textContent = 'ES';
+        langText.textContent = 'Switch to English';
+        
+        // Actualizar el idioma del documento
+        document.documentElement.lang = 'es';
       }
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      
+      // Scroll suave al principio
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Asignar evento al botón
+    langBtn.addEventListener('click', toggleLang);
+    
+    // Permitir cambio de idioma con teclado (Espacio o Enter)
+    langBtn.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        toggleLang();
+      }
+    });
+
+    // Detectar el idioma preferido del usuario
+    const userLang = navigator.language || navigator.userLanguage;
+    if (userLang.startsWith('en') && document.documentElement.lang !== 'en') {
+      // Si el usuario prefiere inglés y la página está en español, cambiar automáticamente
+      toggleLang();
     }
   </script>
 </body>
